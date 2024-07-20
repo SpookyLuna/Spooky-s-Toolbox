@@ -58,16 +58,11 @@ __menu__
         echo "Introduce la ruta de destino"
         read input
         ruta2=$input
-        sudo mv $ruta $ruta2
-            if [ $? == 0 ]  ; then
-                echo "¡$ruta movido con éxito a $ruta2!"
-            else
-                echo "Ha habido un error"
-            fi
+        sudo mv $ruta $ruta2 && echo "¡$ruta movido con éxito a $ruta2!" || echo "Ha habido un error"
 
         echo "Volviendo..."
         sleep 3
-        ;;
+    ;;
     2)
         while true; do
         echo "Introduce la ruta del directorio o archivo"
@@ -83,12 +78,7 @@ __menu__
         echo "Introduce la ruta de destino"
         read input
         destino=$input
-        sudo cp $origen $destino
-            if [ $? == 0 ]  ; then
-                echo "¡$origen copiado con éxito a $ruta2!"
-            else
-                echo "Ha habido un error"
-            fi
+        sudo cp $origen $destino && echo "¡$origen copiado con éxito a $ruta2!" || echo "Ha habido un error"
 
         echo "Volviendo..."
         sleep 3
@@ -132,12 +122,7 @@ __menu__
         echo "Introduce un nombre para el archivo comprimido"
         read input
         archivo=$input
-        zip -j $archivo.zip $ruta/*
-            if [ $? == 0 ]  ; then
-                echo "¡$archivo creado con éxito!"
-            else
-                echo "Ha habido un error en la compresión"
-            fi
+        zip -j $archivo.zip $ruta/* && echo "¡$archivo creado con éxito!" || echo "Ha habido un error en la compresión"
 
         echo "Volviendo..."
         sleep 3
@@ -157,26 +142,13 @@ __menu__
         read input
         destino=$input
         if [ $ruta == *.zip ] ; then
-            sudo unzip $ruta $destino
-            if [ $? == 0 ]  ; then
-                echo "¡$ruta descomprimido con éxito!"
-            else
-                echo "Ha habido un error"
-            fi
+            sudo unzip $ruta $destino && echo "¡$ruta descomprimido con éxito!" || echo "Ha habido un error"
+            
         elif [ $ruta == *.tar.gz ] ; then
-            sudo tar -zxvf $ruta $destino
-            if [ $? == 0 ]  ; then
-                echo "¡$ruta descomprimido con éxito!"
-            else
-                echo "Ha habido un error"
-            fi
+            sudo tar -zxvf $ruta $destino && echo "¡$ruta descomprimido con éxito!" || echo "Ha habido un error"
+
         elif [ $ruta == *.rar ] ; then
-            sudo unrar $ruta $destino
-            if [ $? == 0 ]  ; then
-                echo "¡$ruta descomprimido con éxito!"
-            else
-                echo "Ha habido un error"
-            fi
+            sudo unrar $ruta $destino && echo "¡$ruta descomprimido con éxito!" || echo "Ha habido un error"
         fi
                 
         echo "Volviendo..."

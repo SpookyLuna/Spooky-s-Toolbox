@@ -75,9 +75,9 @@ __menu__
         done
         ;;
     3)
-            while true; do
-            ##echo "Introduce la/las reglas de puertos que quieres cerrar (Las reglas deben ir separados por ','"
-            echo "Introduce la regla de puertos que deseas cerrar"
+        while true; do
+        ##echo "Introduce la/las reglas de puertos que quieres cerrar (Las reglas deben ir separados por ','"
+        echo "Introduce la regla de puertos que deseas cerrar"
             read input
             reglas=$input
             #sudo ufw delete $puertos && echo "Se han cerrado las reglas de puertos $reglas" || echo "Ha habido un error"

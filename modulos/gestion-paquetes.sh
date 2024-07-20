@@ -1,9 +1,8 @@
 #!/bin/bash
 
-#Inicio de bucle en menú
 while true; do
 
-    #Printeo menú ¿Añadir más funciones?
+    # Mostrar menú
     clear
     figlet -f small "SPOOKY'S TOOLBOX"
     echo "
@@ -26,42 +25,67 @@ while true; do
         (o)         (o)                            (o)
 
     "
-    cat <<__menu__
-    -----------------------
-    1. Gestión de usuarios
-    2. Firewall
-    3. Gestión de archivos
-    4. Gestión de paquetes
+    cat << __menu__
+    --------------------
+     GESTION DE PAQUETES
+    --------------------
+    1. Buscar
+    2. Comprobar paquetes instalados
+    3. Instalar
+    4. Desinstalar
     0. Salir
+
 __menu__
 
     #Leer opción
-    read -p "Seleccionar acción>" accion
+    read -p "Selecciona acción>" accion
 
-    #Ejecutar orden seleccionada (Cargada desde /modulos/)
+    #Ejecutar orden seleccionada
     case $accion in
 
-
     1)
-        #Ejecuta el menu de gestión de usuarios desde su modulo
-        exec ./modulos/gestion-usuarios.sh
-        ;;
-    2)  
-        #Ejecuta el menu de Firewall desde su modulo
-        exec ./modulos/firewall.sh
-        ;;
-    3)  
-        #Ejecuta el menu de Getión de archivos desde su modulo
-        exec ./modulos/gestion-archivos.sh
-        ;;
+        echo "Introduce el nombre del paquete que deseas buscar"
+        read paquete
+        paquete=$paquete
+        sudo apt search $paquete || echo "No se ha encontrado el paquete $paquete"
+
+        echo "Volviendo..."
+        sleep 3
+    ;;
+    
+    2)
+        apt list --installed
+        
+        echo "Volviendo..."
+        sleep 3
+    ;;
+
+    3)
+        echo "Introduce el nombre del paquee que deseas instalar"
+        read paquete
+        paquete=$paquete
+        sudo apt install $paquete && echo "$paquete se ha instalado con éxito" || echo "No se ha podido instalar $paquete"
+
+        echo "Volviendo..."
+        sleep 3
+    ;;
+
     4)
-        #Ejecuta el instalador de paquetes desde su modulo
-        exec ./modulos/gestion-paquetes.sh  
-        ;;
+        echo "Introduce el nombre del paquete que deseas desinstalar"
+        read paquete
+        paquete=$paquete
+        sudo apt remove $paquete && echo "$paquete se ha desinstalado con éxito" || echo "No se ha podido desinstalar $paquete"
+
+        echo "Volviendo..."
+        sleep 3
+    ;;
+
     0)
         clear
+        exec ./menu.sh
         break
         ;;
+
     esac
     sleep 1
 
